@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const setupKafkaConsumer = require('./kafka/consumer');
 const logger = require('./utils/logger');
 const errorHandler = require('./utils/errorHandler');
-const subscriptionsRouter = require()
+const subscriptionsRouter = require('./routes/subscriptionRouter');
+const notificationRouter = require('./routes/notificationRoutes');
 const attachUserFromHeaders = require('./utils/attachUserFromHeaders');
 
 const app = express();
@@ -19,7 +20,7 @@ app.use(attachUserFromHeaders);
 
 // routes
 app.use('/users/me/', subscriptionsRouter);
-
+app.use('/users/notifications', notificationRouter);
 
 app.use((req, res) => {
     res.status(404).json({ error: "Not found"});

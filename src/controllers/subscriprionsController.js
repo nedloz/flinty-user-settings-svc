@@ -3,7 +3,7 @@ const UserSettings = require("../collections/UserSettings")
 
 
 
-const getSubscriprions = async (req, res, next) => {
+const getSubscriptions = async (req, res, next) => {
     try {
         const userId = req.user?.user_id;
         if (!userId) throw { status: 401, message: 'Unauthorized' };
@@ -22,6 +22,16 @@ const getSubscriprions = async (req, res, next) => {
     }
 }
 
+const addSubscription = (req, res, next) => {
+    try {
+        const userId = req.user?.user_id;
+        if (!userId) throw { status: 401, message: 'Unauthorized' };
+        
+    } catch (err) {
+        next
+    }
+}
+
 module.exports = {
-    getSubscriprions,
+    getSubscriptions,
 }

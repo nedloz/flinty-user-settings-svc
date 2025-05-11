@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const ChannelsController = require('../controllers/notificationController');
+const ChannelsController = require('../controllers/subscriprionsController');
 
 // get /users/me/subscriptions = auth 
 router.get('/subscriptions', ChannelsController.getSubscriptions);
 // post /users/me/subscriptions = auth
+router.post('/subscriptions', ChannelsController.addSubscription);
 // delete /users/me/subscriptions { server_id, chat_id, user_id } auth
 //      user.unsubscribe => kafka => message.svc (group, private) => deleteMessages
 // post /users/me/blacklist addToBlacklist auth 
