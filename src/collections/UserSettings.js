@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const MUTE_OPTIONS = ['all', 'mentions-replies', 'off'];
-
+const LIMITATIONS = ['send_messages', 'edit_messages', 'delete_messages', 'mention_everyone']
+// если использовать limitations то база будет меньше тк ограничений обычно меньше
 const globalNotificationsSettingsSchema = new mongoose.Schema({
     mute_all: {
-        type: String, 
-        enum: MUTE_OPTIONS,
-        default: 'off'
+        
     },
     mute_servers: {
         type: String, 
@@ -24,6 +23,7 @@ const globalNotificationsSettingsSchema = new mongoose.Schema({
 }, 
 {_id: false }); 
 
+
 const UserSettingsSchema = new mongoose.Schema({
     user_id: { type: String, required: true, unique: true },
     blacklist: [{
@@ -32,12 +32,15 @@ const UserSettingsSchema = new mongoose.Schema({
     }],
     global_notificatons_settings: globalNotificationsSettingsSchema,
     private_chats: [{
-        private_chat_id: String,
+        user_id: String,
         mute: {
             type: String, 
             enum: MUTE_OPTIONS,
             default: 'off'
-        }
+        },
+        local_name: String,
+        local_avatar_url: String,
+        local_description: String
     }],
     group_chats: [{
         group_chat_id: String,
@@ -45,7 +48,12 @@ const UserSettingsSchema = new mongoose.Schema({
             type: String, 
             enum: MUTE_OPTIONS,
             default: 'off'
-        }
+        },
+        limitations: [{
+            type: String,
+            enum: LIMITATIONS,
+            default: []
+        }]
     }],
     servers: [{
         server_id: String,
@@ -60,7 +68,12 @@ const UserSettingsSchema = new mongoose.Schema({
                 type: String, 
                 enum: MUTE_OPTIONS,
                 default: 'off'
-            }
+            },
+            limitations: [{
+                type: String,
+                enum: LIMITATIONS,
+                default: []
+            }]
         }]
     }]
 
