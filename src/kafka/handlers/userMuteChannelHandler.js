@@ -1,5 +1,5 @@
 const UserSettings = require('../../collections/UserSettings');
-const publishUserSubscriptions = require('../core/publishUserSubscriptions');
+const publishUserSubscriptions = require('../utils/publishUserSubscriptions');
 
 const userMuteChannelHandler = async ({ data }) => {
   try {

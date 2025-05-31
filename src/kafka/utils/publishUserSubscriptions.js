@@ -1,5 +1,8 @@
 const produceKafkaMessage = require("../producer");
 
+// сейчас каждый раз при обновлении данных например подписке на новый канал вызывается эта функция которая повторно пересобирает все заново
+// можно сделать другое событие например user.subscriptions.update в котором будут только новые данные и не придется все перебирать с самого начала 
+
 const publishUserSubscriptions = async ({ user_id, userSettings }) => {
   const channels = [];
 

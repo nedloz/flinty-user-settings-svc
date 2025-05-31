@@ -35,7 +35,7 @@ const userJoinServerHandler = async ({ data }) => {
   }
 
   console.log(`[user.join.server] Updated UserSettings for ${user_id}, publishing subscriptions`);
-
+  console.log(updatedUserSettings);
   await publishUserSubscriptions({ user_id, userSettings: updatedUserSettings });
 };
 

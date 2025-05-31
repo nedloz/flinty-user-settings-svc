@@ -1,9 +1,10 @@
 const { Kafka } = require('kafkajs');
 const path = require('path');
 const fs = require('fs');
+const logger = require('../utils/logger');
 
-const kafka = new Kafka({ brokers: ['localhost:9092'] });
-const consumer = kafka.consumer();
+const kafka = new Kafka({ brokers: [process.env.KAFKA_BROKER]});
+const consumer = kafka.consumer({ groupId: process.env.KAFKA_CLIENT_ID });
 
 const handlers = {};
 
@@ -22,7 +23,7 @@ const setupKafkaConsumer = async () => {
   // Автоматически подписываемся на все топики из handlers
   for (const topic of Object.keys(handlers)) {
     await consumer.subscribe({ topic, fromBeginning: false });
-    console.log(`Подписан на Kafka топик: ${topic}`);
+    logger.info(`Подписан на Kafka топик: ${topic}`);
   }
 
   await consumer.run({
@@ -34,10 +35,10 @@ const setupKafkaConsumer = async () => {
         try {
           await handler({ data });
         } catch (err) {
-          console.error(`Ошибка при обработке события ${topic}`, err);
+          logger.error(`Ошибка при обработке события ${topic}`, err);
         }
       } else {
-        console.warn(`Нет обработчика для топика: ${topic}`);
+        logger.warn(`Нет обработчика для топика: ${topic}`);
       }
     }
   });

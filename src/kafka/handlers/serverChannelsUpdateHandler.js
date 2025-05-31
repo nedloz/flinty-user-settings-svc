@@ -1,5 +1,5 @@
 const UserSettings = require('../../collections/UserSettings');
-const publishUserSubscriptions = require('../core/publishUserSubscriptions');
+const publishUserSubscriptions = require('../utils/publishUserSubscriptions');
 
 const serverChannelsUpdateHandler = async ({ data }) => {
   try {
@@ -17,8 +17,8 @@ const serverChannelsUpdateHandler = async ({ data }) => {
       { 'servers.server_id': server_id },
       {
         $set: {
-          'servers.$.channels': channels.map(channel_id => ({
-            channel_id,
+          'servers.$.channels': channels.map(channel  => ({
+            channel_id: channel.channel_id,
             mute: 'off',
             limitations: []
           }))

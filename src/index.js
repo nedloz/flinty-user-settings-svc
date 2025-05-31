@@ -20,7 +20,7 @@ app.use(attachUserFromHeaders);
 
 // routes
 app.use('/users/me/', subscriptionsRouter);
-app.use('/users/notifications', notificationRouter);
+// app.use('/users/notifications', notificationRouter);
 
 app.use((req, res) => {
     res.status(404).json({ error: "Not found"});
