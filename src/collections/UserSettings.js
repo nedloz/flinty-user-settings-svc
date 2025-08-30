@@ -4,7 +4,9 @@ const LIMITATIONS = ['send_messages', 'edit_messages', 'delete_messages', 'menti
 // если использовать limitations то база будет меньше тк ограничений обычно меньше
 const globalNotificationsSettingsSchema = new mongoose.Schema({
     mute_all: {
-        
+        type: String, 
+        enum: MUTE_OPTIONS,
+        default: 'off'
     },
     mute_servers: {
         type: String, 
